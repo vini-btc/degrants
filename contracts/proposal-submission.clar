@@ -27,6 +27,7 @@
         end-block-height: (+ block-height (try! (get-parameter "proposal-duration"))),
         proposer: tx-sender,
         title: title,
+        start-block-height: block-height,
         description: description
       }
     )
