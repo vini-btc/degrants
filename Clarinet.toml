@@ -20,6 +20,11 @@ path = 'contracts/membership-token.clar'
 clarity_version = 2
 epoch = 2.4
 
+[contracts.proposal-submission]
+path = 'contracts/proposal-submission.clar'
+clarity_version = 2
+epoch = 2.4
+
 [contracts.proposal-trait]
 path = 'contracts/proposal-trait.clar'
 clarity_version = 2
