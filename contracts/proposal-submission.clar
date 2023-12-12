@@ -11,10 +11,6 @@
 
 (map-set parameters "proposal-duration" u1440) ;; ~10 days based on a ~10 minute block time.
 
-(define-public (is-dao-or-extension)
-  (ok (asserts! (or (is-eq tx-sender .core) (contract-call? .core is-extension contract-caller)) ERR_UNAUTHORIZED))
-)
-
 (define-read-only (get-parameter (parameter (string-ascii 34)))
   (ok (unwrap! (map-get? parameters parameter) ERR_UNKNOWN_PARAMETER))
 )
