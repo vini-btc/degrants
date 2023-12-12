@@ -15,3 +15,14 @@
 
 (define-public (request-callback (extension <extension-trait>) (memo (buff 34)))
     (as-contract (contract-call? .core request-extension-callback extension memo)))
+
+;; Membership Token contract helper functions
+
+(define-public (call-membership-token-is-dao-or-extension-function)
+    (as-contract (contract-call? .membership-token is-dao-or-extension)))
+
+(define-public (call-membership-token-mint (amount uint) (recipient principal))
+    (as-contract (contract-call? .membership-token mint amount recipient)))
+
+(define-public (call-membership-token-burn (amount uint) (recipient principal))
+    (as-contract (contract-call? .membership-token burn amount recipient)))
