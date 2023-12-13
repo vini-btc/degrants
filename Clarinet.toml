@@ -5,6 +5,11 @@ authors = []
 telemetry = true
 cache_dir = './.cache'
 requirements = []
+[contracts.bootstrap]
+path = 'contracts/bootstrap.clar'
+clarity_version = 2
+epoch = 2.4
+
 [contracts.core]
 path = 'contracts/core.clar'
 clarity_version = 2
@@ -12,22 +17,6 @@ epoch = 2.4
 
 [contracts.extension-trait]
 path = 'contracts/extension-trait.clar'
-clarity_version = 2
-epoch = 2.4
-
-# TODO: Create deployment plans excluding test contracts
-[contracts.test-bootstrap]
-path = 'contracts/tests/test-bootstrap.clar'
-clarity_version = 2
-epoch = 2.4
-
-[contracts.test-extension]
-path = 'contracts/tests/test-extension.clar'
-clarity_version = 2
-epoch = 2.4
-
-[contracts.test-proposal]
-path = 'contracts/tests/test-proposal.clar'
 clarity_version = 2
 epoch = 2.4
 
@@ -48,6 +37,21 @@ epoch = 2.4
 
 [contracts.proposal-voting]
 path = 'contracts/proposal-voting.clar'
+clarity_version = 2
+epoch = 2.4
+
+[contracts.test-bootstrap]
+path = 'contracts/tests/test-bootstrap.clar'
+clarity_version = 2
+epoch = 2.4
+
+[contracts.test-extension]
+path = 'contracts/tests/test-extension.clar'
+clarity_version = 2
+epoch = 2.4
+
+[contracts.test-proposal]
+path = 'contracts/tests/test-proposal.clar'
 clarity_version = 2
 epoch = 2.4
 [repl.analysis]

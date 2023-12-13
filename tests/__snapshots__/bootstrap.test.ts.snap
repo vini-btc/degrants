@@ -1,0 +1,155 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Bootstrap > execute > should enable all degrant extensions and mint membership tokens to the corresponding accounts 1`] = `
+[
+  {
+    "data": {
+      "contract_identifier": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.core",
+      "raw_value": "0x0c00000002056576656e740d00000007657865637574650870726f706f73616c061a6d78de7b0625dfbfc16c3a8a5735f6dc3dc3f2ce09626f6f747374726170",
+      "topic": "print",
+      "value": {
+        "data": {
+          "event": {
+            "data": "execute",
+            "type": 13,
+          },
+          "proposal": {
+            "address": {
+              "hash160": "6d78de7b0625dfbfc16c3a8a5735f6dc3dc3f2ce",
+              "type": 0,
+              "version": 26,
+            },
+            "contractName": {
+              "content": "bootstrap",
+              "lengthPrefixBytes": 1,
+              "maxLengthBytes": 128,
+              "type": 2,
+            },
+            "type": 6,
+          },
+        },
+        "type": 12,
+      },
+    },
+    "event": "print_event",
+  },
+  {
+    "data": {
+      "contract_identifier": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.core",
+      "raw_value": "0x0c0000000307656e61626c656403056576656e740d00000009657874656e73696f6e09657874656e73696f6e061a6d78de7b0625dfbfc16c3a8a5735f6dc3dc3f2ce1370726f706f73616c2d7375626d697373696f6e",
+      "topic": "print",
+      "value": {
+        "data": {
+          "enabled": {
+            "type": 3,
+          },
+          "event": {
+            "data": "extension",
+            "type": 13,
+          },
+          "extension": {
+            "address": {
+              "hash160": "6d78de7b0625dfbfc16c3a8a5735f6dc3dc3f2ce",
+              "type": 0,
+              "version": 26,
+            },
+            "contractName": {
+              "content": "proposal-submission",
+              "lengthPrefixBytes": 1,
+              "maxLengthBytes": 128,
+              "type": 2,
+            },
+            "type": 6,
+          },
+        },
+        "type": 12,
+      },
+    },
+    "event": "print_event",
+  },
+  {
+    "data": {
+      "contract_identifier": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.core",
+      "raw_value": "0x0c0000000307656e61626c656403056576656e740d00000009657874656e73696f6e09657874656e73696f6e061a6d78de7b0625dfbfc16c3a8a5735f6dc3dc3f2ce0f70726f706f73616c2d766f74696e67",
+      "topic": "print",
+      "value": {
+        "data": {
+          "enabled": {
+            "type": 3,
+          },
+          "event": {
+            "data": "extension",
+            "type": 13,
+          },
+          "extension": {
+            "address": {
+              "hash160": "6d78de7b0625dfbfc16c3a8a5735f6dc3dc3f2ce",
+              "type": 0,
+              "version": 26,
+            },
+            "contractName": {
+              "content": "proposal-voting",
+              "lengthPrefixBytes": 1,
+              "maxLengthBytes": 128,
+              "type": 2,
+            },
+            "type": 6,
+          },
+        },
+        "type": 12,
+      },
+    },
+    "event": "print_event",
+  },
+  {
+    "data": {
+      "contract_identifier": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.core",
+      "raw_value": "0x0c0000000307656e61626c656403056576656e740d00000009657874656e73696f6e09657874656e73696f6e061a6d78de7b0625dfbfc16c3a8a5735f6dc3dc3f2ce106d656d626572736869702d746f6b656e",
+      "topic": "print",
+      "value": {
+        "data": {
+          "enabled": {
+            "type": 3,
+          },
+          "event": {
+            "data": "extension",
+            "type": 13,
+          },
+          "extension": {
+            "address": {
+              "hash160": "6d78de7b0625dfbfc16c3a8a5735f6dc3dc3f2ce",
+              "type": 0,
+              "version": 26,
+            },
+            "contractName": {
+              "content": "membership-token",
+              "lengthPrefixBytes": 1,
+              "maxLengthBytes": 128,
+              "type": 2,
+            },
+            "type": 6,
+          },
+        },
+        "type": 12,
+      },
+    },
+    "event": "print_event",
+  },
+  {
+    "data": {
+      "amount": "100",
+      "asset_identifier": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.membership-token::sGrant",
+      "recipient": "ST1B4TR7KVSSXCKWNYX3VXNDHTK79ZDRGAJWWTA0G",
+    },
+    "event": "ft_mint_event",
+  },
+  {
+    "data": {
+      "amount": "100",
+      "asset_identifier": "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.membership-token::sGrant",
+      "recipient": "ST3RDC4C9B0A2FG8B7DQ9MBTFPYQZNDAVC9AC7MAF",
+    },
+    "event": "ft_mint_event",
+  },
+]
+`;
