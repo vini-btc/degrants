@@ -9,11 +9,7 @@
 (define-constant ERR_PROPOSAL_ALREADY_EXISTS (err u3003))
 (define-constant ERR_UNKNOWN_PROPOSAL (err u3004))
 (define-constant ERR_PROPOSAL_ALREADY_CONCLUDED (err u3005))
-(define-constant ERR_PROPOSAL_INACTIVE (err u3006))
-(define-constant ERR_PROPOSAL_NOT_CONCLUDED (err u3007))
-(define-constant ERR_NO_VOTES_TO_RETURN (err u3008))
 (define-constant ERR_END_BLOCK_HEIGHT_NOT_REACHED (err u3009))
-(define-constant ERR_DISABLED (err u3010))
 
 (define-map proposals
   principal

@@ -27,5 +27,15 @@
 (define-public (call-membership-token-burn (amount uint) (recipient principal))
     (as-contract (contract-call? .membership-token burn amount recipient)))
 
+;; Proposal Submission contract test helper functions
+
 (define-public (call-proposal-submission-propose-function (proposal <proposal-trait>) (title (string-ascii 50)) (description (string-utf8 500)))
     (as-contract (contract-call? .proposal-submission propose proposal title description)))
+
+;; Proposal Voting contract test helper functions
+
+(define-public (call-proposal-voting-is-dao-or-extension-function)
+    (as-contract (contract-call? .proposal-voting is-dao-or-extension)))
+
+(define-public (call-proposal-voting-add-proposal (proposal <proposal-trait>) (data {start-block-height: uint, end-block-height: uint, proposer: principal, title: (string-ascii 50), description: (string-utf8 500)}))
+    (as-contract (contract-call? .proposal-voting add-proposal proposal data)))
