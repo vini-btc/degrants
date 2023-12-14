@@ -20,8 +20,18 @@ path = 'contracts/extension-trait.clar'
 clarity_version = 2
 epoch = 2.4
 
+[contracts.funding-trait]
+path = 'contracts/funding-trait.clar'
+clarity_version = 2
+epoch = 2.4
+
 [contracts.membership-token]
 path = 'contracts/membership-token.clar'
+clarity_version = 2
+epoch = 2.4
+
+[contracts.proposal-funding]
+path = 'contracts/proposal-funding.clar'
 clarity_version = 2
 epoch = 2.4
 

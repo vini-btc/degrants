@@ -22,7 +22,9 @@
     passed: bool,
     proposer: principal,
     title: (string-ascii 50),
-    description: (string-utf8 500)
+    description: (string-utf8 500),
+    milestones: uint,
+    fund-per-milestone: uint,
   }
 )
 
@@ -32,7 +34,7 @@
   (ok (asserts! (or (is-eq tx-sender .core) (contract-call? .core is-extension contract-caller)) ERR_UNAUTHORIZED))
 )
 
-(define-public (add-proposal (proposal <proposal-trait>) (data {start-block-height: uint, end-block-height: uint, proposer: principal, title: (string-ascii 50), description: (string-utf8 500)}))
+(define-public (add-proposal (proposal <proposal-trait>) (data {start-block-height: uint, end-block-height: uint, proposer: principal, title: (string-ascii 50), description: (string-utf8 500), milestones: uint, fund-per-milestone: uint}))
   (begin
     (try! (is-dao-or-extension))
     (asserts! (is-none (contract-call? .core executed-at proposal)) ERR_PROPOSAL_ALREADY_EXECUTED)
@@ -82,3 +84,12 @@
 (define-public (callback (sender principal) (memo (buff 34)))
   (ok true)
 )
+
+(define-read-only (was-approved (proposal <proposal-trait>))
+  (let
+    (
+      (proposal-data (unwrap! (map-get? proposals (contract-of proposal)) ERR_UNKNOWN_PROPOSAL))
+      (passed (> (get votes-for proposal-data) (get votes-against proposal-data)))
+      (concluded (get concluded proposal-data))
+    )
+    (ok (and passed concluded))))

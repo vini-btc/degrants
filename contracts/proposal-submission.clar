@@ -15,7 +15,7 @@
   (ok (unwrap! (map-get? parameters parameter) ERR_UNKNOWN_PARAMETER))
 )
 
-(define-public (propose (proposal <proposal-trait>) (title (string-ascii 50)) (description (string-utf8 500)))
+(define-public (propose (proposal <proposal-trait>) (title (string-ascii 50)) (description (string-utf8 500)) (milestones uint) (amount-per-milestone uint))
   (begin
     (contract-call? .proposal-voting add-proposal
       proposal
@@ -24,7 +24,9 @@
         proposer: tx-sender,
         title: title,
         start-block-height: block-height,
-        description: description
+        description: description,
+        milestones: milestones,
+        fund-per-milestone: amount-per-milestone 
       }
     )
   )

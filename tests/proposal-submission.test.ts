@@ -4,7 +4,8 @@ import {
   boolCV,
   contractPrincipalCV,
   stringAsciiCV,
-  stringUtf8CV
+  stringUtf8CV,
+  uintCV
 } from '@stacks/transactions';
 
 describe('Proposal Submission', async () => {
@@ -32,7 +33,9 @@ describe('Proposal Submission', async () => {
         [
           contractPrincipalCV(deployer, 'test-proposal'),
           stringAsciiCV('Test Proposal'),
-          stringUtf8CV('Testing the proposal functionality of this contract.')
+          stringUtf8CV('Testing the proposal functionality of this contract.'),
+          uintCV(5),
+          uintCV(2_000)
         ],
         address1
       );

@@ -5,10 +5,10 @@ import {
   contractPrincipalCV,
   standardPrincipalCV,
   stringAsciiCV,
+  stringUtf8CV,
   tupleCV,
   uintCV
 } from '@stacks/transactions';
-import { stringUtf8 } from '@stacks/transactions/dist/cl';
 
 describe('Proposal Voting', async () => {
   const simnet = await initSimnet();
@@ -61,9 +61,11 @@ describe('Proposal Voting', async () => {
             ['end-block-height']: uintCV(200),
             proposer: standardPrincipalCV(address1),
             title: stringAsciiCV('Test Add Proposal'),
-            description: stringUtf8(
+            description: stringUtf8CV(
               'Test description of the add-proposal function'
-            )
+            ),
+            milestones: uintCV(3),
+            ['fund-per-milestone']: uintCV(1_000)
           })
         ],
         address1
@@ -83,9 +85,11 @@ describe('Proposal Voting', async () => {
             ['end-block-height']: uintCV(200),
             proposer: standardPrincipalCV(address1),
             title: stringAsciiCV('Test Add Proposal'),
-            description: stringUtf8(
+            description: stringUtf8CV(
               'Test description of the add-proposal function'
-            )
+            ),
+            milestones: uintCV(3),
+            ['fund-per-milestone']: uintCV(1_000)
           })
         ],
         address1
@@ -102,9 +106,11 @@ describe('Proposal Voting', async () => {
           ['end-block-height']: uintCV(200),
           proposer: standardPrincipalCV(address1),
           title: stringAsciiCV('Test Add Proposal'),
-          description: stringUtf8(
+          description: stringUtf8CV(
             'Test description of the add-proposal function'
-          )
+          ),
+          milestones: uintCV(3),
+          ['fund-per-milestone']: uintCV(1_000)
         })
       ];
       simnet.callPublicFn(
@@ -129,7 +135,11 @@ describe('Proposal Voting', async () => {
       ['end-block-height']: uintCV(200),
       proposer: standardPrincipalCV(address1),
       title: stringAsciiCV('Test Add Proposal'),
-      description: stringUtf8('Test description of the add-proposal function')
+      description: stringUtf8CV(
+        'Test description of the add-proposal function'
+      ),
+      milestones: uintCV(3),
+      ['fund-per-milestone']: uintCV(1_000)
     };
 
     it('should not allow voting on an unkown proposal', () => {
@@ -269,9 +279,11 @@ describe('Proposal Voting', async () => {
             ['end-block-height']: uintCV(200),
             proposer: standardPrincipalCV(address1),
             title: stringAsciiCV('Test Add Proposal'),
-            description: stringUtf8(
+            description: stringUtf8CV(
               'Test description of the add-proposal function'
-            )
+            ),
+            milestones: uintCV(3),
+            ['fund-per-milestone']: uintCV(1_000)
           })
         ],
         address1
