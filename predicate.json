@@ -1,0 +1,22 @@
+{
+  "chain": "stacks",
+  "uuid": "1",
+  "name": "New Grant Proposal",
+  "version": 1,
+  "networks": {
+    "testnet": {
+      "if_this": {
+        "scope": "contract_call",
+        "contract_identifier": "ST3RDC4C9B0A2FG8B7DQ9MBTFPYQZNDAVC9AC7MAF.proposal-submission",
+        "method": "propose"
+      },
+      "then_that": {
+        "http_post": {
+          "url": "",
+          "authorization_header": ""
+        }
+      },
+      "start_block": 138339
+    }
+  }
+}
