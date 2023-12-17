@@ -1,55 +1,90 @@
-import React, { ReactElement, useState } from 'react';
-import { StacksMainnet } from '@stacks/network';
-import {
-  callReadOnlyFunction,
-  getAddressFromPublicKey,
-  uintCV,
-  cvToValue
-} from '@stacks/transactions';
+import React, { ReactElement, useEffect, useState } from 'react';
 import {
   AppConfig,
   FinishedAuthData,
   showConnect,
-  UserSession,
-  openSignatureRequestPopup
+  UserSession
 } from '@stacks/connect';
-import { verifyMessageSignatureRsv } from '@stacks/encryption';
 
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { ExternalLink } from './external-link';
 import { ArrowRight } from 'lucide-react';
 import { truncateAddress } from './lib/utils';
+import { Link } from 'react-router-dom';
 
 function App(): ReactElement {
   const [address, setAddress] = useState('');
-  const [isSignatureVerified, setIsSignatureVerified] = useState(false);
-  const [hasFetchedReadOnly, setHasFetchedReadOnly] = useState(false);
 
-  // Initialize your app configuration and user session here
   const appConfig = new AppConfig(['store_write', 'publish_data']);
   const userSession = new UserSession({ appConfig });
 
-  const message = 'Hello, Hiro Hacks!';
-  const network = new StacksMainnet();
+  const proposals = [
+    {
+      id: 1,
+      title: 'Proposal 1',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl quis ultricies ultricies, nunc nisl ultricies nisl, quis ultricies nisl nisl quis nisl.',
+      total: 1000
+    },
+    {
+      id: 2,
+      title: 'Proposal 2',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl quis ultricies ultricies, nunc nisl ultricies nisl, quis ultricies nisl nisl quis nisl.',
+      total: 2000
+    },
+    {
+      id: 3,
+      title: 'Proposal 3',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl quis ultricies ultricies, nunc nisl ultricies nisl, quis ultricies nisl nisl quis nisl.',
+      total: 2000
+    },
+    {
+      id: 4,
+      title: 'Proposal 4',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl quis ultricies ultricies, nunc nisl ultricies nisl, quis ultricies nisl nisl quis nisl.',
+      total: 1000
+    },
+    {
+      id: 5,
+      title: 'Proposal 5',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl quis ultricies ultricies, nunc nisl ultricies nisl, quis ultricies nisl nisl quis nisl.',
+      total: 2000
+    },
+    {
+      id: 6,
+      title: 'Proposal 6',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl quis ultricies ultricies, nunc nisl ultricies nisl, quis ultricies nisl nisl quis nisl.',
+      total: 2000
+    }
+  ];
 
-  // Define your authentication options here
   const authOptions = {
     userSession,
     appDetails: {
-      name: 'My App',
+      name: 'DeGrants',
       icon: 'src/favicon.svg'
     },
     onFinish: (data: FinishedAuthData) => {
       // Handle successful authentication here
-      let userData = data.userSession.loadUserData();
-      setAddress(userData.profile.stxAddress.mainnet); // or .testnet for testnet
+      const userData = data.userSession.loadUserData();
+      setAddress(userData.profile.stxAddress.testnet); // or .testnet for testnet
     },
     onCancel: () => {
       // Handle authentication cancellation here
     },
     redirectTo: '/'
   };
+
+  useEffect(() => {
+    if (userSession.isUserSignedIn()) {
+      setAddress(userSession.loadUserData().profile.stxAddress.testnet);
+    } else {
+      setAddress('');
+    }
+  }, [userSession]);
 
   const connectWallet = () => {
     showConnect(authOptions);
@@ -62,168 +97,90 @@ function App(): ReactElement {
     }
   };
 
-  const fetchReadOnly = async (senderAddress: string) => {
-    // Define your contract details here
-    const contractAddress = 'SP000000000000000000002Q6VF78';
-    const contractName = 'pox-3';
-    const functionName = 'is-pox-active';
-
-    const functionArgs = [uintCV(10)];
-
-    try {
-      const result = await callReadOnlyFunction({
-        network,
-        contractAddress,
-        contractName,
-        functionName,
-        functionArgs,
-        senderAddress
-      });
-      setHasFetchedReadOnly(true);
-      console.log(cvToValue(result));
-    } catch (error) {
-      console.error('Error fetching read-only function:', error);
-    }
-  };
-
-  const signMessage = () => {
-    if (userSession.isUserSignedIn()) {
-      openSignatureRequestPopup({
-        message,
-        network,
-        onFinish: async ({ publicKey, signature }) => {
-          // Verify the message signature using the verifyMessageSignatureRsv function
-          const verified = verifyMessageSignatureRsv({
-            message,
-            publicKey,
-            signature
-          });
-          if (verified) {
-            // The signature is verified, so now we can check if the user is a keyholder
-            setIsSignatureVerified(true);
-            console.log(
-              'Address derived from public key',
-              getAddressFromPublicKey(publicKey, network.version)
-            );
-          }
-        }
-      });
-    }
-  };
-
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="mx-auto max-w-2xl px-4">
-        <div className="rounded-lg border bg-background p-8">
-          <h1 className="mb-2 text-lg font-semibold">Welcome to Hiro Hacks!</h1>
-          <p className="leading-normal text-muted-foreground">
-            This is an open source starter template built with{' '}
-            <ExternalLink href="https://docs.hiro.so/stacks.js/overview">
-              Stacks.js
-            </ExternalLink>{' '}
-            and a few integrations to help kickstart your app:
-          </p>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-slate-950 w-full text-slate-400 text-sm leading-loose">
+      <div className="absolute top-0 left-0 w-full h-32 lg:h-16 bg-gradient-to-b from-slate-950 to-slate-900 border-b border-slate-800">
+        <nav className="w-full h-full flex flex-col lg:flex-row items-center space-between px-4 pb-4 lg:px-8 lg:pb-0">
+          <ul className="flex items-center h-full gap-4 flex-grow">
+            <li className="hover:text-slate-100">
+              <Link className="mono text-lg mr-4" to="/">
+                DE_GRANTS_
+              </Link>
+            </li>
+            <li className="hover:text-slate-100">
+              <a href="/about">About</a>
+            </li>
+            <li className="hover:text-slate-100">
+              <a href="/proposals">Proposals</a>
+            </li>
+            <li className="hover:text-slate-100">
+              <a href="/projects">Projects</a>
+            </li>
 
-          <div className="mt-4 flex flex-col items-start space-y-2">
+            <li className="hover:text-slate-100">
+              <a href="/submit">Submit Proposal</a>
+            </li>
+          </ul>
+          <div className="flex gap-4 items-center">
             {userSession.isUserSignedIn() ? (
-              <div className="flex justify-between w-full">
-                <Button
-                  onClick={disconnectWallet}
-                  variant="link"
-                  className="h-auto p-0 text-base"
-                >
-                  1. Disconnect wallet
-                  <ArrowRight size={15} className="ml-1" />
-                </Button>
-                {address && <span>{truncateAddress(address)}</span>}
-              </div>
+              <button
+                onClick={disconnectWallet}
+                className="bg-slate-950 border border-slate-800 rounded-lg py-2 px-4 hover:bg-slate-800"
+              >
+                Disconnect Wallet
+              </button>
             ) : (
-              <Button
+              <button
                 onClick={connectWallet}
-                variant="link"
-                className="h-auto p-0 text-base"
+                className="bg-slate-950 border border-slate-800 rounded-lg py-2 px-4 hover:bg-slate-800"
               >
-                1. Connect your wallet
-                <ArrowRight size={15} className="ml-1" />
-              </Button>
-            )}
-            <div className="flex justify-between w-full">
-              <Button
-                onClick={signMessage}
-                variant="link"
-                className="h-auto p-0 text-base text-neutral-500"
-              >
-                2. Sign a message
-                <ArrowRight size={15} className="ml-1" />
-              </Button>
-              {isSignatureVerified && <span>{message}</span>}
-            </div>
-
-            {userSession.isUserSignedIn() ? (
-              <div className="flex justify-between w-full">
-                <Button
-                  onClick={() => fetchReadOnly(address)}
-                  variant="link"
-                  className="h-auto p-0 text-base"
-                >
-                  3. Read from a smart contract
-                  <ArrowRight size={15} className="ml-1" />
-                </Button>
-                {hasFetchedReadOnly && (
-                  <span>
-                    <Badge className="text-orange-500 bg-orange-100">
-                      Success
-                    </Badge>
-                  </span>
-                )}
-              </div>
-            ) : (
-              <div className="flex justify-between w-full">
-                <Button
-                  variant="link"
-                  className="disabled h-auto p-0 text-base"
-                >
-                  3. Read from a smart contract
-                  <ArrowRight size={15} className="ml-1" />
-                </Button>
-              </div>
+                Connect Wallet
+              </button>
             )}
           </div>
+        </nav>
+      </div>
+      {address && (
+        <span className="absolute top-32 lg:top-16 right-10 text-xs pt-2">
+          connected as: {truncateAddress(address)}
+        </span>
+      )}
+      <div className="mx-auto max-w-2xl px-4 pt-48 lg:pt-16">
+        <div className="rounded-lg border bg-background p-8">
+          <h1 className="mb-2 text-lg font-bold text-slate-900">
+            Welcome to DeGrants
+          </h1>
+          <p className="leading-normal text-muted-foreground">
+            The Stacks Descentralized Grants Program. Connect your wallet and
+            have a look at the latest proposals, vote for your favorites and
+            submit your own.
+          </p>
+        </div>
+      </div>
+      <div className="mx-auto max-w-6xl px-4 mt-8">
+        <h2 className="text-center text-lg font-bold mb-4">Latest Proposals</h2>
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-8">
+          {proposals.map(({ id, title, description, total }) => (
+            <div className="rounded-lg bg-gradient-to-b from-slate-900 to-slate-800 p-4 border border-slate-800">
+              <h3 className="font-bold mb">{title}</h3>
+              <p>{description}</p>
+              <div className="flex justify-between items-center border-t mt-2 border-slate-700">
+                <p>
+                  <strong>Requested:</strong> {total}STX
+                </p>
+                <Link
+                  className="hover:underline flex items-center"
+                  to={`/proposals/${id}`}
+                >
+                  View Details <ArrowRight className="ml-1" size={14} />
+                </Link>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
-
-  // return (
-  //   <div className="text-center">
-  //     <h1 className="text-xl">Friend.tech</h1>
-  //     <div>
-  //       <button onClick={disconnectWallet}>Disconnect Wallet</button>
-  //     </div>
-  //     <div>
-  //       <p>
-  //         {address} is {isKeyHolder ? '' : 'not'} a key holder
-  //       </p>
-  //       <div>
-  //         <input
-  //           type="text"
-  //           id="address"
-  //           name="address"
-  //           placeholder="Enter address"
-  //         />
-  //         <button onClick={() => checkIsKeyHolder(address)}>
-  //           Check Key Holder
-  //         </button>
-  //         <div>
-  //           <p>Key Holder Check Result: {isKeyHolder ? 'Yes' : 'No'}</p>
-  //         </div>
-  //       </div>
-  //     </div>
-  //     <div>
-  //       Sign this message: <button onClick={signMessage}>Sign</button>
-  //     </div>
-  //   </div>
-  // );
 }
 
 export default App;
