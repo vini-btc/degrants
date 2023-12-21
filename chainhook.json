@@ -1,0 +1,24 @@
+{
+  "name": "proposal-listener",
+  "chain": "stacks",
+  "version": 1,
+  "networks": {
+    "testnet": {
+      "if_this": {
+        "scope": "contract_call",
+        "method": "propose",
+        "contract_identifier": "ST3RDC4C9B0A2FG8B7DQ9MBTFPYQZNDAVC9AC7MAF.proposal-submission"
+      },
+      "end_block": null,
+      "then_that": {
+        "http_post": {
+          "url": "https://famous-lands-joke.loca.lt/listen/proposal/update",
+          "authorization_header": "Bearer fixmeplease"
+        }
+      },
+      "start_block": 138602,
+      "decode_clarity_values": true,
+      "expire_after_occurrence": null
+    }
+  }
+}
