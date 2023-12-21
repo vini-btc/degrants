@@ -44,3 +44,9 @@ To test the example use case:
 3. After your proposal was deployed, you should be able to see it in the /proposals page. There's a functionality to refresh the proposal status to check when it's confirmed in an anchor block.
 4. You can submit a confirmed proposal for appreciation from the UI as well.
 5. The chainhook we setup should be able to listen and update proposals based on events, but that bit is missing due to lack of time.
+
+<img width="1057" alt="Screenshot 2023-12-21 at 04 26 01" src="https://github.com/vicnicius/degrants/assets/1326024/c7eb40ae-6bff-4219-8fc1-0a43ecc3d041">
+
+<img width="1056" alt="Screenshot 2023-12-21 at 04 25 46" src="https://github.com/vicnicius/degrants/assets/1326024/2b86afd5-7abb-4b92-b0c1-2e4bdb68b642">
+
+
